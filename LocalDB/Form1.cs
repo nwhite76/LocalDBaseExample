@@ -6,6 +6,7 @@ namespace LocalDB
     {
         private string dbPath;
         private string connectionString;
+        private DatabaseHelper db;
 
         public Form1()
         {
@@ -23,28 +24,15 @@ namespace LocalDB
 
             connectionString = $"Data Source={dbPath}";
 
-            Debug.WriteLine(Application.StartupPath);
+            db = new DatabaseHelper(connectionString);
         }
 
         // Insert into the database
         private void btnAddStudent_Click(object sender, EventArgs e)
         {
-            using var connection = new SqliteConnection(connectionString);
-
-            connection.Open();
-
-            var command = connection.CreateCommand();
-
-            command.CommandText =
-               """
-                INSERT INTO Students (Name, Grade)
-                VALUES ($name, $grade);
-                """;
-
-            command.Parameters.AddWithValue("$name", txtName.Text);
-            command.Parameters.AddWithValue("$grade", txtGrade.Text);
-
-            command.ExecuteNonQuery();
+            db.AddStudent(
+                txtName.Text,
+                txtGrade.Text);
 
             MessageBox.Show("Student Added");
 
@@ -55,24 +43,10 @@ namespace LocalDB
         {
             lstStudents.Items.Clear();
 
-            using var connection = new SqliteConnection(connectionString);
-
-            connection.Open();
-
-            var command = connection.CreateCommand();
-
-            command.CommandText =
-                """
-                SELECT *
-                FROM Students;
-                """;
-
-            using var reader = command.ExecuteReader();
-
-            while (reader.Read())
+            List<Student> students = db.GetStudents();
+            foreach (Student student in students)
             {
-                lstStudents.Items.Add(
-                    $"{reader["Id"]} - {reader["Name"]} - {reader["Grade"]}");
+                lstStudents.Items.Add($"{student.Id} - {student.Name} - {student.Grade}");
             }
         }
 
@@ -80,26 +54,7 @@ namespace LocalDB
         /*
         private void btnCreateDatabase_Click(object sender, EventArgs e)
         {
-            Directory.CreateDirectory(
-                Path.GetDirectoryName(dbPath)!);
-
-            using var connection = new SqliteConnection(connectionString);
-
-            connection.Open();
-
-            var command = connection.CreateCommand();
-
-            command.CommandText =
-               """
-                CREATE TABLE IF NOT EXISTS Students
-                (
-                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Name TEXT NOT NULL,
-                    Grade TEXT
-                );
-                """;
-
-            command.ExecuteNonQuery();
+            db.CreateDatabase();
 
             MessageBox.Show("Database Created");
         }
