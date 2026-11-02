@@ -33,10 +33,11 @@
             label1 = new Label();
             label2 = new Label();
             btnAddStudent = new Button();
-            lstStudents = new ListBox();
             btnLoadStudents = new Button();
             label3 = new Label();
             dobDateTimePicker = new DateTimePicker();
+            dataGridView = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
             // txtName
@@ -81,15 +82,6 @@
             btnAddStudent.UseVisualStyleBackColor = true;
             btnAddStudent.Click += btnAddStudent_Click;
             // 
-            // lstStudents
-            // 
-            lstStudents.FormattingEnabled = true;
-            lstStudents.ItemHeight = 15;
-            lstStudents.Location = new Point(342, 113);
-            lstStudents.Name = "lstStudents";
-            lstStudents.Size = new Size(178, 124);
-            lstStudents.TabIndex = 5;
-            // 
             // btnLoadStudents
             // 
             btnLoadStudents.Location = new Point(342, 67);
@@ -116,15 +108,23 @@
             dobDateTimePicker.Size = new Size(200, 23);
             dobDateTimePicker.TabIndex = 9;
             // 
+            // dataGridView
+            // 
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Location = new Point(342, 120);
+            dataGridView.Name = "dataGridView";
+            dataGridView.Size = new Size(329, 260);
+            dataGridView.TabIndex = 10;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(dataGridView);
             Controls.Add(dobDateTimePicker);
             Controls.Add(label3);
             Controls.Add(btnLoadStudents);
-            Controls.Add(lstStudents);
             Controls.Add(btnAddStudent);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -132,6 +132,7 @@
             Controls.Add(txtName);
             Name = "Form1";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -143,9 +144,9 @@
         private Label label1;
         private Label label2;
         private Button btnAddStudent;
-        private ListBox lstStudents;
         private Button btnLoadStudents;
         private Label label3;
         private DateTimePicker dobDateTimePicker;
+        private DataGridView dataGridView;
     }
 }

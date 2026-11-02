@@ -29,11 +29,12 @@ namespace LocalDB
         {
             // Calculate student age
             DateTime dob = DateTime.Parse(Dob);
-            TimeSpan rawAge = DateTime.Now.Subtract(dob);
-            double ageYears = rawAge.TotalDays / 365.25;
-            int age = int.Parse(Math.Truncate(ageYears).ToString());
+            int age = DateTime.Today.Year - dob.Year;
+            if (dob > DateTime.Today.AddYears(-age))
+            {
+                age--;
+            }
             return age;
-
         }
     }
 }
