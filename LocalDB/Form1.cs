@@ -83,6 +83,8 @@ namespace LocalDB
                 txtName.Clear();
                 txtGrade.Clear();
                 dobDateTimePicker.Value = DateTime.Now;
+                // Update the DataGridView to show the new student
+                btnLoadStudents_Click(sender, e);
             }
             catch (Exception ex)
             {
