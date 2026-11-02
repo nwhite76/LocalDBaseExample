@@ -36,6 +36,10 @@ namespace LocalDB
                 dobDateTimePicker.Value.ToString("yyyy-MM-dd"));
 
             MessageBox.Show("Student Added");
+            // Clear the text boxes
+            txtName.Clear();
+            txtGrade.Clear();
+            dobDateTimePicker.Value = DateTime.Now;
 
         }
 
