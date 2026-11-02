@@ -45,35 +45,77 @@ namespace LocalDB
             dataGridView.AllowUserToResizeColumns = false;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridView.AllowUserToResizeRows = false;
-            dataGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridView.RowHeadersWidthSizeMode =  DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 
         }
 
         // Insert into the database
         private void btnAddStudent_Click(object sender, EventArgs e)
         {
-            db.AddStudent(
-                txtName.Text,
-                txtGrade.Text,
-                dobDateTimePicker.Value.ToString("yyyy-MM-dd"));
+            // Validate input
+            if (string.IsNullOrWhiteSpace(txtName.Text))
+            {
+                MessageBox.Show("Please enter a name.");
+                return;
+            }
 
-            MessageBox.Show("Student Added");
-            // Clear the text boxes
-            txtName.Clear();
-            txtGrade.Clear();
-            dobDateTimePicker.Value = DateTime.Now;
+            if (string.IsNullOrWhiteSpace(txtGrade.Text))
+            {
+                MessageBox.Show("Please enter a grade.");
+                return;
+            }
+            // Validate that the date of birth is not in the future
+            if (dobDateTimePicker.Value > DateTime.Now)
+            {
+                MessageBox.Show("Date of birth cannot be in the future.");
+                return;
+            }
+
+            try
+            {
+                db.AddStudent(
+                    txtName.Text,
+                    txtGrade.Text,
+                    dobDateTimePicker.Value.ToString("yyyy-MM-dd"));
+
+                MessageBox.Show("Student Added");
+                // Clear the text boxes
+                txtName.Clear();
+                txtGrade.Clear();
+                dobDateTimePicker.Value = DateTime.Now;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                   ex.Message,
+                   "Database Error",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+            }
+
 
         }
 
         // Load students from the database 
         private void btnLoadStudents_Click(object sender, EventArgs e)
         {
-            dataGridView.Rows.Clear();
+            try
+            {
+                dataGridView.Rows.Clear();
 
-            List<Student> students = db.GetStudents();
-            foreach (Student student in students)
-            { 
-                dataGridView.Rows.Add(student.Id, student.Name, student.Grade, student.Age());
+                List<Student> students = db.GetStudents();
+                foreach (Student student in students)
+                {
+                    dataGridView.Rows.Add(student.Id, student.Name, student.Grade, student.Age());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                   ex.Message,
+                   "Database Error",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
             }
         }
 
