@@ -16,7 +16,7 @@ namespace LocalDB
         }
 
         // Adds a new student record to the Students table
-        public void AddStudent(string name, string grade)
+        public void AddStudent(string name, string grade, string dob)
         {
             // Create a connection to the database
             using var connection =
@@ -34,12 +34,14 @@ namespace LocalDB
                 INSERT INTO Students
                 (
                     Name,
-                    Grade
+                    Grade,
+                    Dob
                 )
                 VALUES
                 (
                     $name,
-                    $grade
+                    $grade,
+                    $dob
                 );
                 """;
 
@@ -56,6 +58,12 @@ namespace LocalDB
             command.Parameters.AddWithValue(
                 "$grade",
                 grade);
+
+            // Link the SQL parameter $dob
+            // to the dob passed into the method
+            command.Parameters.AddWithValue(
+                "$dob",
+                dob);
 
             // Execute the INSERT statement
             command.ExecuteNonQuery();
@@ -100,7 +108,8 @@ namespace LocalDB
                     new Student(
                         reader.GetInt32(0),     // Id column
                         reader.GetString(1),    // Name column
-                        reader.GetString(2)     // Grade column
+                        reader.GetString(2),    // Grade column
+                        reader.GetString(3)     // Dob column
                     ));
             }
 

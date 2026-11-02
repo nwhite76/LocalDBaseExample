@@ -35,6 +35,8 @@
             btnAddStudent = new Button();
             lstStudents = new ListBox();
             btnLoadStudents = new Button();
+            label3 = new Label();
+            dobDateTimePicker = new DateTimePicker();
             SuspendLayout();
             // 
             // txtName
@@ -71,7 +73,7 @@
             // 
             // btnAddStudent
             // 
-            btnAddStudent.Location = new Point(71, 194);
+            btnAddStudent.Location = new Point(76, 216);
             btnAddStudent.Name = "btnAddStudent";
             btnAddStudent.Size = new Size(138, 44);
             btnAddStudent.TabIndex = 4;
@@ -85,7 +87,7 @@
             lstStudents.ItemHeight = 15;
             lstStudents.Location = new Point(342, 113);
             lstStudents.Name = "lstStudents";
-            lstStudents.Size = new Size(107, 124);
+            lstStudents.Size = new Size(178, 124);
             lstStudents.TabIndex = 5;
             // 
             // btnLoadStudents
@@ -98,11 +100,29 @@
             btnLoadStudents.UseVisualStyleBackColor = true;
             btnLoadStudents.Click += btnLoadStudents_Click;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(35, 184);
+            label3.Name = "label3";
+            label3.Size = new Size(73, 15);
+            label3.TabIndex = 8;
+            label3.Text = "Date of Birth";
+            // 
+            // dobDateTimePicker
+            // 
+            dobDateTimePicker.Location = new Point(114, 184);
+            dobDateTimePicker.Name = "dobDateTimePicker";
+            dobDateTimePicker.Size = new Size(200, 23);
+            dobDateTimePicker.TabIndex = 9;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(dobDateTimePicker);
+            Controls.Add(label3);
             Controls.Add(btnLoadStudents);
             Controls.Add(lstStudents);
             Controls.Add(btnAddStudent);
@@ -125,5 +145,7 @@
         private Button btnAddStudent;
         private ListBox lstStudents;
         private Button btnLoadStudents;
+        private Label label3;
+        private DateTimePicker dobDateTimePicker;
     }
 }

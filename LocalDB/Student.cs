@@ -11,16 +11,29 @@ namespace LocalDB
         public int Id { get; set; }
         public string Name { get; set; }
         public string Grade { get; set; }
-        public Student(int id, string name, string grade)
+        public string Dob { get; set; }
+        public Student(int id, string name, string grade, string dob)
         {
             Id = id;
             Name = name;
             Grade = grade;
+            Dob = dob;
         }
 
         public override string ToString()
         {
             return $"{Id} - {Name} - {Grade}";
+        }
+
+        public int Age()
+        {
+            // Calculate student age
+            DateTime dob = DateTime.Parse(Dob);
+            TimeSpan rawAge = DateTime.Now.Subtract(dob);
+            double ageYears = rawAge.TotalDays / 365.25;
+            int age = int.Parse(Math.Truncate(ageYears).ToString());
+            return age;
+
         }
     }
 }

@@ -32,7 +32,8 @@ namespace LocalDB
         {
             db.AddStudent(
                 txtName.Text,
-                txtGrade.Text);
+                txtGrade.Text,
+                dobDateTimePicker.Value.ToString("yyyy-MM-dd"));
 
             MessageBox.Show("Student Added");
 
@@ -46,7 +47,7 @@ namespace LocalDB
             List<Student> students = db.GetStudents();
             foreach (Student student in students)
             {
-                lstStudents.Items.Add($"{student.Id} - {student.Name} - {student.Grade}");
+                lstStudents.Items.Add($"{student.Id} - {student.Name} - {student.Grade} (Age {student.Age()}");
             }
         }
 
